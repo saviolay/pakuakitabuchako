@@ -12,9 +12,9 @@
         padding: 0;
         height: 100vh;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         background: #0a1426;
         font-family: 'Inter', sans-serif;
         color: white;
@@ -32,7 +32,6 @@
         cursor: pointer;
         text-decoration: none;
         transition: 0.2s;
-        margin-bottom: 20px;
     }
 
     .download-btn:hover {
@@ -40,38 +39,58 @@
         transform: scale(1.05);
     }
 
-    #timer {
-        font-size: 17px;
-        color: #d1e9ff;
-        margin-top: 10px;
+    #before-text {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+
+    #countdown-box {
+        margin-top: 15px;
+        font-size: 18px;
+        display: none;
     }
 </style>
 
 </head>
 <body>
 
-<!-- BUTTON YA KUPAKUA -->
-<a id="downloadLink" class="download-btn" href="safari yangu na mungu.pdf" download>
-    DOWNLOAD (PDF)
-</a>
+<button class="download-btn" id="downloadBtn">DOWNLOAD (PDF)</button>
 
-<!-- MAANDISHI YA TIMER -->
-<p id="timer">Subiri kwa sekunde <span id="count">4</span> itaanza kupakua...</p>
+<p id="before-text">Bofya mara 1 kupakua</p>
+
+<p id="countdown-box">
+    Subiri kwa sekunde <span id="seconds">4</span>… inajiandaa kupakua
+</p>
 
 <script>
-    let timeLeft = 4;
+    document.getElementById("downloadBtn").onclick = function() {
+        // Ficha button
+        document.getElementById("downloadBtn").style.display = "none";
 
-    let countdown = setInterval(function() {
-        timeLeft--;
-        document.getElementById("count").textContent = timeLeft;
+        // Ficha maandishi ya "bofya mara 1 kupakua"
+        document.getElementById("before-text").style.display = "none";
 
-        if(timeLeft <= 0){
-            clearInterval(countdown);
-            // Anzisha download automatically
-            document.getElementById("downloadLink").click();
-            document.getElementById("timer").textContent = "Download inaanza...";
-        }
-    }, 1000);
+        // Onyesha countdown
+        document.getElementById("countdown-box").style.display = "block";
+
+        let timeLeft = 4;
+        let timer = setInterval(function() {
+            timeLeft--;
+            document.getElementById("seconds").innerHTML = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+
+                // Start download automatically
+                const link = document.createElement("a");
+                link.href = "safari yangu na mungu.pdf"; // PDF YAKO
+                link.download = "safari yangu na mungu.pdf";
+                link.click();
+
+                document.getElementById("countdown-box").innerHTML = "Download inaanza...";
+            }
+        }, 1000);
+    };
 </script>
 
 </body>
