@@ -12,10 +12,13 @@
         padding: 0;
         height: 100vh;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         background: #0a1426;
         font-family: 'Inter', sans-serif;
+        color: white;
+        text-align: center;
     }
 
     .download-btn {
@@ -29,26 +32,47 @@
         cursor: pointer;
         text-decoration: none;
         transition: 0.2s;
+        margin-bottom: 20px;
     }
 
     .download-btn:hover {
         opacity: 0.9;
         transform: scale(1.05);
     }
+
+    #timer {
+        font-size: 17px;
+        color: #d1e9ff;
+        margin-top: 10px;
+    }
 </style>
 
 </head>
 <body>
 
-<!-- BADILISHA LINK YA PDF HAPA -->
-<a class="download-btn" href="safari yangu na mungu.pdf" download>
+<!-- BUTTON YA KUPAKUA -->
+<a id="downloadLink" class="download-btn" href="safari yangu na mungu.pdf" download>
     DOWNLOAD (PDF)
 </a>
 
+<!-- MAANDISHI YA TIMER -->
+<p id="timer">Subiri kwa sekunde <span id="count">4</span> itaanza kupakua...</p>
+
+<script>
+    let timeLeft = 4;
+
+    let countdown = setInterval(function() {
+        timeLeft--;
+        document.getElementById("count").textContent = timeLeft;
+
+        if(timeLeft <= 0){
+            clearInterval(countdown);
+            // Anzisha download automatically
+            document.getElementById("downloadLink").click();
+            document.getElementById("timer").textContent = "Download inaanza...";
+        }
+    }, 1000);
+</script>
+
 </body>
 </html>
-
-
-
-
-
